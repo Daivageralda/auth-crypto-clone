@@ -1,0 +1,7 @@
+.venv
+**/__pycache__/
+
+# ini punyaku, ga sama bikin venv nya wkwk
+venv/
+.cz.toml
+back-up/
