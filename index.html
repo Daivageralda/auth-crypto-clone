@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WebSocket Price Viewer</title>
+  </head>
+  <body>
+    <h2>Live Crypto Price</h2>
+    <pre id="output">Connecting...</pre>
+
+    <script>
+      const ws = new WebSocket('ws://0.0.0.0:8001/ws/price');
+      const output = document.getElementById('output');
+
+      ws.onopen = () => (output.textContent = 'Connected to WebSocket...\n');
+
+      ws.onmessage = function (event) {
+        const data = JSON.parse(event.data);
+        output.textContent += JSON.stringify(data) + '\n';
+      };
+
+      ws.onerror = () => (output.textContent += '\n[!] WebSocket error');
+      ws.onclose = () => (output.textContent += '\n[!] Connection closed');
+    </script>
+  </body>
+</html>

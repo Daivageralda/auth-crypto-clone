@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Market Live</title>
+</head>
+<body>
+  <h1>Live Crypto Prices</h1>
+
+  <div id="market-container"></div>
+
+  <script>
+    const container = document.getElementById("market-container");
+    const ws = new WebSocket(`ws://${location.host}/ws-price`);
+
+    ws.onmessage = (event) => {
+      const payload = JSON.parse(event.data);
+      const exchange = payload.exchange;
+      const coins = Array.isArray(payload.data) ? payload.data.slice(0, 10) : [];
+
+      updateUI(exchange, coins);
+    };
+
+    function updateUI(exchange, coins) {
+      let section = document.querySelector(`[data-section="${exchange}"]`);
+      if (!section) {
+        section = document.createElement("div");
+        section.setAttribute("data-section", exchange);
+        section.innerHTML = `
+          <h2>${exchange}</h2>
+          <ul data-exchange="${exchange}"></ul>
+        `;
+        container.appendChild(section);
+      }
+
+      const ul = section.querySelector("ul");
+      ul.innerHTML = ""; // bersihkan list
+
+      coins.forEach((coin) => {
+        const li = document.createElement("li");
+        li.innerText = `${coin.symbol} - ${coin.market_a} - ${coin.market_b} (gap: ${coin.gap})`;
+        ul.appendChild(li);
+      });
+    }
+  </script>
+</body>
+</html>

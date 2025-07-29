@@ -1,0 +1,28 @@
+table tr th, table tr td {
+    background-color: #002060 !important;
+    color: white !important;
+}
+
+.card {
+  margin: 0;
+}
+
+.card .table{
+  cursor: move;
+}
+
+.card:hover {
+  box-shadow: 0 0 10px #0ff;
+}
+
+.container-fluid {
+  max-width: 100% !important;
+}
+
+table tr {
+    font-size: 10px !important;
+}
+
+.pc5 {
+  padding: 1px;
+}

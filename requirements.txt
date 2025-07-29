@@ -1,0 +1,7 @@
+fastapi[standard]
+python-jose
+httpx
+python-dotenv
+supabase
+requests
+websocket-client
